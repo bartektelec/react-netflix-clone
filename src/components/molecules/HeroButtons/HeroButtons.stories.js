@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router';
 import HeroButtons from 'components/molecules/HeroButtons/HeroButtons';
 
 export default {
@@ -9,4 +10,8 @@ export default {
   ],
 };
 
-export const Default = () => <HeroButtons>Add to list</HeroButtons>;
+export const Default = () => (
+  <MemoryRouter>
+    <HeroButtons>Add to list</HeroButtons>
+  </MemoryRouter>
+);

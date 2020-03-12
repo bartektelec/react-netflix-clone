@@ -1,7 +1,12 @@
 import React from 'react';
+import Navbar from 'components/organisms/Navbar/Navbar';
 
-const App = props => {
-  return <>This is an app</>;
+const Root = props => {
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 
-export default App;
+export default Root;

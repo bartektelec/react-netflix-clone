@@ -34,16 +34,16 @@ const StyledInput = styled.input`
   background: none;
   border: none;
   height: 24px;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #fff;
   margin: 0 1.6rem;
-  color: #ccc;
+  color: #fff;
+  opacity: 0.6;
   font-size: 1.6rem;
 
   :hover,
   :active,
   :focus {
-    color: #fff;
-    border-color: #fff;
+    opacity: 1;
   }
 `;
 
@@ -56,12 +56,13 @@ const StyledButton = styled.button`
   background-image: url(${searchIcon});
   filter: invert(100%);
   cursor: pointer;
+  opacity: 0.6;
   transition: opacity 0.2s ease;
 
   :hover,
   :active,
   :focus {
-    opacity: 0.9;
+    opacity: 1;
   }
 `;
 
@@ -71,8 +72,8 @@ const StyledForm = styled.form`
   align-content: center;
 `;
 
-const SearchBar = props => {
-  const [query, setQuery] = useState('star');
+const SearchBar = () => {
+  const [query, setQuery] = useState('');
   const [foundItems, setFoundItems] = useState([]);
 
   useEffect(() => {
