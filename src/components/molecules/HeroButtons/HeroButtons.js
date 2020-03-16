@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Button from 'components/atoms/Button/Button';
 
-const HeroButtons = () => {
+const HeroButtons = ({ data }) => {
+  const searchQuery = `https://google.com/search?q=Watch ${data.title ||
+    data.name} Online`;
   return (
     <>
-      <Button as={Link} primary>
+      <Button href={searchQuery} primary="true">
         Watch now
       </Button>
       <Button>Add to list</Button>

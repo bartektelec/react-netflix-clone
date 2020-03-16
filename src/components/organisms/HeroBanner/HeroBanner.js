@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
 import HeroButtons from 'components/molecules/HeroButtons/HeroButtons';
 
 const keyFrameAnim = keyframes`
@@ -34,15 +33,16 @@ const HeroBg = styled.div`
   animation: ${keyFrameAnim} 25s ease infinite alternate;
 `;
 
-const HeroBanner = ({ data }) => {
+const HeroBanner = ({ data, params }) => {
+  console.log(data);
   const bgImage = data.backdrop_path
     ? `https://image.tmdb.org/t/p/original/${data.backdrop_path}`
     : `https://image.tmdb.org/t/p/original/${data.poster_path}`;
   return (
     <HeroBg bg={bgImage}>
-      <StyledTitle>{data.name}</StyledTitle>
+      <StyledTitle>{data.title || data.name}</StyledTitle>
       <StyledParagraph>{data.overview}</StyledParagraph>
-      <HeroButtons />
+      <HeroButtons data={data} />
       <StyledParagraph>
         Starring: Dan Castellaneta, Julie Kavner, Nancy Cartwright
       </StyledParagraph>
@@ -53,10 +53,6 @@ const HeroBanner = ({ data }) => {
       </StyledParagraph>
     </HeroBg>
   );
-};
-
-HeroBanner.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default HeroBanner;

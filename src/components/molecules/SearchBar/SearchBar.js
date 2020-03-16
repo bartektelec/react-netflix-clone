@@ -76,14 +76,7 @@ const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [foundItems, setFoundItems] = useState([]);
 
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/search/multi?api_key=da4622c209e92f622296706520a36d5f&language=en-US&page=1&include_adult=false&query=${query}`
-    )
-      .then(result => result.json())
-      .then(data => setFoundItems(data.results))
-      .catch(err => err);
-  }, [query]);
+  useEffect(() => {}, [query]);
 
   const handleSearch = e => {
     setQuery(e.target.value);
@@ -91,6 +84,17 @@ const SearchBar = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (query) {
+      fetch(
+        `https://api.themoviedb.org/3/search/multi?api_key=da4622c209e92f622296706520a36d5f&language=en-US&page=1&include_adult=false&query=${query}`
+      )
+        .then(result => result.json())
+        .then(data => setFoundItems(data.results))
+        .catch(err => err);
+      setQuery('');
+    } else {
+      setFoundItems('');
+    }
   };
   return (
     <>
@@ -99,18 +103,25 @@ const SearchBar = () => {
         <StyledButton type="submit" />
         <SearchResults>
           {foundItems &&
-            foundItems.map(item => {
-              const itemKey = `/details/${item.media_type}/${item.id}`;
-              const releaseYear = item.release_date
-                ? item.release_date.replace(/-[0-9]{1,2}-[0-9]{1,2}/, ' ')
-                : '';
-              const mediaType =
-                item.media_type === 'movie' ? 'movie' : 'TV show';
-              return (
-                <StyledLink key={itemKey} to={itemKey}>
-                  {item.title || item.name}({releaseYear} {mediaType})
-                </StyledLink>
-              );
+            foundItems.map((item, index) => {
+              if (
+                (item.media_type === 'movie' && index < 10) ||
+                (item.media_type === 'tv' && index < 10)
+              ) {
+                const itemKey = `/${item.media_type}/${item.id}`;
+                const releaseYear = item.release_date
+                  ? item.release_date.replace(/-[0-9]{1,2}-[0-9]{1,2}/, ' ')
+                  : '';
+                const mediaType =
+                  item.media_type === 'movie' ? ' movie' : 'TV show';
+                return (
+                  <StyledLink key={itemKey} to={itemKey}>
+                    {item.title || item.name}({releaseYear}
+                    {mediaType})
+                  </StyledLink>
+                );
+              }
+              return null;
             })}
         </SearchResults>
       </StyledForm>
