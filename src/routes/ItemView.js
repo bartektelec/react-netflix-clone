@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeroBanner from 'components/organisms/HeroBanner/HeroBanner';
+import CategoryView from 'routes/CategoryView';
 
 const ItemPage = ({ params: { id, type } }) => {
   const mediaId = id || 456;
@@ -16,6 +17,7 @@ const ItemPage = ({ params: { id, type } }) => {
   return (
     <>
       <HeroBanner data={movie} />
+      <CategoryView scroll={true} page={mediaType} />
     </>
   );
 };

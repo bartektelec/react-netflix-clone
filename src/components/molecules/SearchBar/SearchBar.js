@@ -15,6 +15,11 @@ const SearchResults = styled.ul`
   top: 100%;
   left: 0%;
   right: 0%;
+  z-index: 10;
+
+  @media (max-width: 800px) {
+    font-size: 2.4rem;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -39,6 +44,11 @@ const StyledInput = styled.input`
   color: #fff;
   opacity: 0.6;
   font-size: 1.6rem;
+
+  @media (max-width: 800px) {
+    font-size: 2.4rem;
+    width: 100%;
+  }
 
   :hover,
   :active,
@@ -72,7 +82,7 @@ const StyledForm = styled.form`
   align-content: center;
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ handleCollapse }) => {
   const [query, setQuery] = useState('');
   const [foundItems, setFoundItems] = useState([]);
 
@@ -80,6 +90,11 @@ const SearchBar = () => {
 
   const handleSearch = e => {
     setQuery(e.target.value);
+  };
+
+  const removeResults = () => {
+    setFoundItems();
+    handleCollapse();
   };
 
   const handleSubmit = e => {
@@ -91,15 +106,19 @@ const SearchBar = () => {
         .then(result => result.json())
         .then(data => setFoundItems(data.results))
         .catch(err => err);
-      setQuery('');
     } else {
-      setFoundItems('');
+      removeResults();
     }
   };
   return (
     <>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledInput type="text" value={query} onChange={handleSearch} />
+        <StyledInput
+          type="text"
+          placeholder="Search for a movie/tv show title"
+          value={query}
+          onChange={handleSearch}
+        />
         <StyledButton type="submit" />
         <SearchResults>
           {foundItems &&
@@ -115,7 +134,11 @@ const SearchBar = () => {
                 const mediaType =
                   item.media_type === 'movie' ? ' movie' : 'TV show';
                 return (
-                  <StyledLink key={itemKey} to={itemKey}>
+                  <StyledLink
+                    key={itemKey}
+                    onClick={removeResults}
+                    to={itemKey}
+                  >
                     {item.title || item.name}({releaseYear}
                     {mediaType})
                   </StyledLink>

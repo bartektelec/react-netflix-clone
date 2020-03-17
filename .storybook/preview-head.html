@@ -9,4 +9,14 @@
   a {
     text-decoration: none;
   }
+
+  .card-slider {
+    & * {
+      &:hover,
+      &:active,
+      &:focus {
+        transform: translateY(-100%);
+      }
+    }
+  }
 </style>
