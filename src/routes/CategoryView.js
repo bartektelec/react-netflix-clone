@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import PageContext from 'context';
+import PageContext, { KeyContext } from 'context';
 import styled from 'styled-components';
 
 import CardGrid from 'components/molecules/CardGrid/CardGrid';
@@ -18,7 +18,8 @@ const StyledWrapper = styled.div`
 
 const CategoryPage = ({ scroll }) => {
   const [data, setData] = useState([]);
-  const { page, type, apikey } = useContext(PageContext);
+  const { page, type } = useContext(PageContext);
+  const apikey = useContext(KeyContext);
   const pageType = page || type;
   useEffect(() => {
     fetch(

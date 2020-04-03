@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { KeyContext } from 'context';
 import { Link } from 'react-router-dom';
 import searchIcon from 'assets/icons/svg/search.svg';
 import styled from 'styled-components';
@@ -85,6 +86,8 @@ const StyledForm = styled.form`
 const SearchBar = ({ handleCollapse }) => {
   const [query, setQuery] = useState('');
   const [foundItems, setFoundItems] = useState([]);
+  const apikey = useContext(KeyContext);
+  console.log(apikey);
 
   useEffect(() => {}, [query]);
 
@@ -101,7 +104,7 @@ const SearchBar = ({ handleCollapse }) => {
     e.preventDefault();
     if (query) {
       fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=da4622c209e92f622296706520a36d5f&language=en-US&page=1&include_adult=false&query=${query}`
+        `https://api.themoviedb.org/3/search/multi?api_key=${apikey}&language=en-US&page=1&include_adult=false&query=${query}`
       )
         .then(result => result.json())
         .then(data => setFoundItems(data.results))

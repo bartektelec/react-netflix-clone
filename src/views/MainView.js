@@ -6,7 +6,7 @@ import apikey from 'apikey.js';
 
 const MainView = ({ match: { params } }) => {
   return (
-    <PageContext.Provider value={{ ...params, apikey }}>
+    <PageContext.Provider value={{ ...params }}>
       {params.page ? (
         <CategoryView page={params.page} />
       ) : (

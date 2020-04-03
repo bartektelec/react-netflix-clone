@@ -1,7 +1,10 @@
 import React from 'react';
 import { createContext } from 'react';
-import key from 'apikey.js';
 
 const PageContext = createContext();
+
+const KeyContext = createContext();
+
+export { KeyContext };
 
 export default PageContext;

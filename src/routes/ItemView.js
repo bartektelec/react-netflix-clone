@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
-import PageContext from 'context';
+import PageContext, { KeyContext } from 'context';
 import HeroBanner from 'components/organisms/HeroBanner/HeroBanner';
 import CategoryView from 'routes/CategoryView';
 
 const ItemPage = () => {
-  const { id, type, apikey } = useContext(PageContext);
+  const { id, type } = useContext(PageContext);
+  const apikey = useContext(KeyContext);
   const mediaId = id || 456;
   const mediaType = type || 'tv';
   const [movie, setMovie] = useState({});
