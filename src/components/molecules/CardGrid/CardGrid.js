@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PageContext from 'context';
 import styled from 'styled-components';
 import Card from 'components/atoms/Card/Card';
 
@@ -9,12 +10,14 @@ const StyledWrapper = styled.div`
   justify-content: space-around;
 `;
 const CardGrid = ({ data, mediaType, scroll }) => {
+  const { page } = useContext(PageContext);
   return (
     <StyledWrapper scroll={scroll}>
       {data.results &&
-        data.results.map(item => (
-          <Card key={item.id} mediaType={mediaType} data={item} />
-        ))}
+        data.results.map(item => {
+          const pageType = item.type || page;
+          return <Card key={item.id} pageType={pageType} data={item} />;
+        })}
     </StyledWrapper>
   );
 };

@@ -87,7 +87,6 @@ const SearchBar = ({ handleCollapse }) => {
   const [query, setQuery] = useState('');
   const [foundItems, setFoundItems] = useState([]);
   const apikey = useContext(KeyContext);
-  console.log(apikey);
 
   useEffect(() => {}, [query]);
 

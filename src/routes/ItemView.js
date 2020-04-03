@@ -4,11 +4,11 @@ import HeroBanner from 'components/organisms/HeroBanner/HeroBanner';
 import CategoryView from 'routes/CategoryView';
 
 const ItemPage = () => {
-  const { id, type } = useContext(PageContext);
+  const [movie, setMovie] = useState({});
+  const { id, page } = useContext(PageContext);
   const apikey = useContext(KeyContext);
   const mediaId = id || 456;
-  const mediaType = type || 'tv';
-  const [movie, setMovie] = useState({});
+  const mediaType = page || 'tv';
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apikey}&language=en-US`

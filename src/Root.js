@@ -9,7 +9,7 @@ const Root = () => {
       <Navbar />
       <Switch>
         <Route exact path="/" component={MainView} />
-        <Route path={['/:type/:id', '/:page/']} component={MainView} />
+        <Route path={['/:page/:id', '/:page/']} component={MainView} />
       </Switch>
     </>
   );

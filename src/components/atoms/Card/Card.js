@@ -41,8 +41,8 @@ const CardTitle = styled.p`
   transition: transform 0.2s 0.2s ease;
 `;
 
-const Card = ({ data, mediaType }) => {
-  const hrefLink = `/${mediaType}/${data.id}`;
+const Card = ({ data, pageType }) => {
+  const hrefLink = `/${pageType}/${data.id}`;
   const cardName = `${data.name || data.title}`;
   return (
     <CardBg
