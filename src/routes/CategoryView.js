@@ -18,9 +18,9 @@ const StyledWrapper = styled.div`
 
 const CategoryPage = ({ scroll = false }) => {
   const [data, setData] = useState([]);
-  const { page, type } = useContext(PageContext);
+  const { page, watchlist } = useContext(PageContext);
   const apikey = useContext(KeyContext);
-  const pageType = page || type || 'tv';
+  const pageType = page || 'tv';
 
   const headingText = (() => {
     switch (pageType) {
@@ -36,22 +36,7 @@ const CategoryPage = ({ scroll = false }) => {
   })();
   useEffect(() => {
     if (pageType === 'watchlist') {
-      setData({
-        results: [
-          {
-            type: 'movie',
-            poster_path: '/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg',
-            id: 420818,
-            name: 'The Lion King',
-          },
-          {
-            type: 'tv',
-            name: 'Money Heist',
-            id: 71446,
-            poster_path: '/MoEKaPFHABtA1xKoOteirGaHl1.jpg',
-          },
-        ],
-      });
+      setData(watchlist);
     } else {
       fetch(
         `https://api.themoviedb.org/3/discover/${pageType}?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
@@ -59,7 +44,7 @@ const CategoryPage = ({ scroll = false }) => {
         .then(result => result.json())
         .then(response => setData(response));
     }
-  }, [pageType]);
+  }, [page]);
 
   return (
     <>
