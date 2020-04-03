@@ -91,13 +91,15 @@ const SearchBar = ({ handleCollapse }) => {
 
   useEffect(() => {}, [query]);
 
-  const handleSearch = e => {
-    setQuery(e.target.value);
-  };
-
   const removeResults = () => {
     setFoundItems();
     handleCollapse();
+  };
+  const handleSearch = e => {
+    setQuery(e.target.value);
+    if (!e.target.value) {
+      removeResults();
+    }
   };
 
   const handleSubmit = e => {
