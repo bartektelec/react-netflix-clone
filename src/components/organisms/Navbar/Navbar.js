@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import HamburgerIcon from 'assets/icons/svg/menu.svg';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import routeList from 'routes/routeList';
 import styled from 'styled-components';
@@ -71,8 +72,13 @@ const BrandLogo = styled(Link)`
 `;
 
 const StyledMenuBtn = styled.button`
+  background: none;
+  background-image: ${HamburgerIcon};
+  width: 4.8rem;
+  height: 4.8rem;
+  border: none;
+  filter: invert(100%);
   display: none;
-
   @media (max-width: 800px) {
     display: inline-block;
   }
@@ -88,7 +94,9 @@ const Navbar = () => {
     <>
       <StyledNav>
         <BrandLogo to="/">Lameflix</BrandLogo>
-        <StyledMenuBtn onClick={handleCollapse}>MENU</StyledMenuBtn>
+        <StyledMenuBtn onClick={handleCollapse}>
+          <img src={HamburgerIcon} alt="Menu icon" />
+        </StyledMenuBtn>
         <CollapsableMenu isCollapsed={isCollapsed}>
           <MenuList>
             {routeList.map(item => (
