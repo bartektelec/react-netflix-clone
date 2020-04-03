@@ -20,7 +20,7 @@ const CategoryPage = ({ scroll }) => {
   const [data, setData] = useState([]);
   const { page, type } = useContext(PageContext);
   const apikey = useContext(KeyContext);
-  const pageType = page || type;
+  const pageType = page || type || 'tv';
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/discover/${pageType}?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
