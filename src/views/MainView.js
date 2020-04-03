@@ -5,7 +5,8 @@ import ItemView from 'routes/ItemView';
 import apikey from 'apikey.js';
 
 const MainView = ({ match: { params } }) => {
-  const [watchlist, setWatchlist] = useState({});
+  const initialWatchlist = JSON.parse(localStorage.getItem('lameWatchlist'));
+  const [watchlist, setWatchlist] = useState(initialWatchlist || {});
   if (!params.page) {
     params = { page: 'tv', id: '456' };
   }

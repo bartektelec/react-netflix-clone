@@ -3,26 +3,30 @@ import PageContext from 'context';
 import Button from 'components/atoms/Button/Button';
 
 const HeroButtons = ({ data }) => {
-  const { setWatchlist, page } = useContext(PageContext);
+  const { watchlist, setWatchlist, page } = useContext(PageContext);
   const searchQuery = `https://google.com/search?q=Watch ${data.title ||
     data.name} Online`;
 
   const addToWatchlist = () => {
-    const newElement = { ...data };
+    const { id, backdrop_path, poster_path, name, title } = data;
+    const newElement = { id, backdrop_path, poster_path, name, title };
     newElement.type = page;
-    setWatchlist(({ results }) => {
-      if (results) {
-        const sameElements = results.filter(
+    const newResult = (() => {
+      if (watchlist.results) {
+        const prevResult = watchlist.results;
+        const sameElements = prevResult.filter(
           item => item.id === newElement.id && item.type === newElement.type
         );
         if (sameElements.length) {
-          return { results: [...results] };
+          return { results: [...prevResult] };
         }
-        return { results: [...results, newElement] };
+        return { results: [...prevResult, newElement] };
       }
 
       return { results: [newElement] };
-    });
+    })();
+    setWatchlist(newResult);
+    localStorage.setItem('lameWatchlist', JSON.stringify(newResult));
   };
 
   return (
