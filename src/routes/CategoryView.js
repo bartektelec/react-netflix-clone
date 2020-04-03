@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import PageContext from 'context';
 import styled from 'styled-components';
+
 import CardGrid from 'components/molecules/CardGrid/CardGrid';
 
 const StyledHeading = styled.h2`
@@ -14,22 +16,24 @@ const StyledWrapper = styled.div`
   overflow-y: hidden;
 `;
 
-const CategoryPage = ({ page, scroll }) => {
+const CategoryPage = ({ scroll }) => {
   const [data, setData] = useState([]);
+  const { page, type, apikey } = useContext(PageContext);
+  const pageType = page || type;
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/discover/${page}?api_key=da4622c209e92f622296706520a36d5f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+      `https://api.themoviedb.org/3/discover/${pageType}?api_key=${apikey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
     )
       .then(result => result.json())
       .then(response => setData(response));
-  }, [page]);
+  }, [pageType]);
   return (
     <>
       <StyledHeading>
-        Popular {page === 'movie' ? 'movies' : 'TV series'}
+        Popular {pageType === 'movie' ? 'movies' : 'TV series'}
       </StyledHeading>
       <StyledWrapper>
-        <CardGrid scroll={scroll} data={data} mediaType={page} />
+        <CardGrid scroll={scroll} data={data} mediaType={pageType} />
       </StyledWrapper>
     </>
   );

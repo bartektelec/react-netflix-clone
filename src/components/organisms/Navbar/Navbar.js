@@ -7,11 +7,11 @@ import styled from 'styled-components';
 const StyledNav = styled.nav`
   display: flex;
   position: relative;
+  width: 100%;
   height: 8rem;
   align-items: center;
   padding: 0 3rem;
   background-color: #000;
-
   @media (max-width: 800px) {
     justify-content: space-between;
   }
@@ -23,13 +23,16 @@ const CollapsableMenu = styled.div`
   align-items: center;
   width: 100%;
   background-color: #000;
-
+  transition: transform .2s ease, opacity .4s ease;
   @media (max-width: 800px) {
     padding: 1.6rem;
-    display: ${({ isCollapsed }) => (isCollapsed ? 'none' : 'flex')};
+    /* display: ${({ isCollapsed }) => (isCollapsed ? 'none' : 'flex')}; */
     flex-direction: column;
     position: absolute;
-    z-index: 10;
+    transform-origin: top;
+    transform: ${({ isCollapsed }) => isCollapsed && 'translateX(-100%)'};
+    opacity: ${({ isCollapsed }) => isCollapsed && '0'};
+    z-index: 9;
     left: 0;
     top: 8rem;
   }
