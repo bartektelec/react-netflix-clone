@@ -6,11 +6,11 @@ a Netflix clone built in React for learning purposes
 
 <img src="screenshot.jpg" width="80%" alt="Lameflix app screenshot"/>
 
-- UI completely based on Netflix
+- UI inspired of Netflix
 - Design system built using @storybook
-- Get movies from Movie Database API and show them as cards
+- Gett movies from Movie Database API and show them as cards
 - Search for movies and TV series
-- Choose one featured movie and show it in hero
+- When card is clicked on, it displays more details about the movie
 - Add movies to watch list
 
 ## Credits
